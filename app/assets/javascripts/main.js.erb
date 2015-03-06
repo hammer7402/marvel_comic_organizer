@@ -1,0 +1,15 @@
+
+$(document).ready(function(){
+  console.log("main.js")
+
+  $("#add").click(function(){
+    $("#add-comic").toggleClass("hidden");
+    var $comicInfo = $("#comic-info")
+
+  })
+
+  var availableTags = <%= Comic.all.map { |c| c.title } %>;
+  $( "#add-comic-search-bar" ).autocomplete({
+    source: availableTags
+  });
+});

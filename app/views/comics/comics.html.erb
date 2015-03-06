@@ -1,0 +1,11 @@
+<button id="add">Add a comic</button>
+
+<div id="comic-info">
+
+  <%= form_tag("#", class: "hidden", id: "add-comic") do %>
+    <%= label_tag(:title, "Enter Comic Title:") %>
+    <%= text_field_tag(:title, "", size: 100, id: "add-comic-search-bar") %>
+    <%= submit_tag("Add") %>
+  <% end %>
+
+</div>
