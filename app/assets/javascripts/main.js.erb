@@ -1,15 +1,79 @@
 
+function addAutoComplete(){
+  var availableTags = <%= User.find($id).bins.map { |b| b.bin } %>;
+  // debugger;
+  $("#add-bin-search-bar").autocomplete({
+    source: availableTags
+  });
+
+  var availableTags = <%= Comic.all.map { |c| c.title } %>;
+  $("#add-comic-search-bar").autocomplete({
+    source: availableTags
+  });
+}
+
+function showAutoComplete(){
+  var showTags = <%= User.find($id).comics.map { |c| c.title } %>;
+  $("#show-comic-search-bar").autocomplete({
+    source: showTags
+  });
+}
+
 $(document).ready(function(){
   console.log("main.js")
 
   $("#add").click(function(){
     $("#add-comic").toggleClass("hidden");
-    var $comicInfo = $("#comic-info")
+    $("#show-comic").addClass("hidden");
+
 
   })
 
-  var availableTags = <%= Comic.all.map { |c| c.title } %>;
-  $( "#add-comic-search-bar" ).autocomplete({
-    source: availableTags
+  $("#show").click(function(){
+    $("#show-comic").toggleClass("hidden");
+    $("#add-comic").addClass("hidden");
+
+
+  })
+
+  num = parseInt($(".main").attr("id"))
+  // debugger;
+  <%#= debugger; %>
+
+  addAutoComplete();
+  showAutoComplete();
+
+
+  $("#add-comic").on("submit", function(e) {
+    e.preventDefault();
+    comic =
+      {
+        bin: $("#add-bin-search-bar").val(),
+        title: $("#add-comic-search-bar").val()
+      }
+    // debugger;
+    $.post("/comics_data", comic).done(function (response) {
+      addAutoComplete();
+    });
+
+  });
+
+  $("#show-comic").on("submit", function(e) {
+    e.preventDefault();
+    showAutoComplete();
+
+    var $title = $("#show-comic-search-bar").val()
+    // debugger;
+    $.get( "/comics_data/").done(function (response) {
+      var comic = {};
+      for (var i = 0; i < response.length; i++) {
+        if (response[i]["title"] === $title) {
+          comic = response[i];
+        }
+      };
+      // debugger;
+    });
+    // debugger;
+
   });
 });

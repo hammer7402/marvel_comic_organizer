@@ -1,11 +1,41 @@
-<button id="add">Add a comic</button>
+<div class="main" id="<%= @id %>">
+  <button id="add">Add a comic</button><br>
+  <button id="show">Show a comic</button>
 
-<div id="comic-info">
+  <div id="comic-info">
 
-  <%= form_tag("#", class: "hidden", id: "add-comic") do %>
-    <%= label_tag(:title, "Enter Comic Title:") %>
-    <%= text_field_tag(:title, "", size: 100, id: "add-comic-search-bar") %>
-    <%= submit_tag("Add") %>
-  <% end %>
+    <%= form_tag("#", class: "hidden", id: "add-comic") do %>
+      <%= label_tag(:bin, "Enter Bin where the comic is going:") %>
+      <%= text_field_tag(:bin, "", id: "add-bin-search-bar") %><br>
+      <%= label_tag(:title, "Enter Comic Title:") %>
+      <%= text_field_tag(:title, "", size: 100, id: "add-comic-search-bar") %>
+      <%= submit_tag("Add") %>
+    <% end %>
 
+    <%= form_tag("#", class: "hidden", id: "show-comic") do %>
+      <%= label_tag(:title, "Enter Comic Title:") %>
+      <%= text_field_tag(:title, "", size: 100, id: "show-comic-search-bar") %>
+      <%= submit_tag("Display Comic") %>
+    <% end %>
+
+    <div id="comic-data">
+
+    </div>
+
+  </div>
 </div>
+
+<script id="show-user-comic" type="text/template">
+  <div class="comic">
+    <h1><%%= title %></h1>
+    <div class="image">
+      <img src="<%%= image_url %>">
+    </div>
+    <div class="comic-description">
+      <p><%%= description %></p>
+    </div>
+  </div>
+</script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.3.1/lodash.min.js" type="text/javascript"></script>

@@ -58,6 +58,12 @@ users = User.create([
   {username: "mike", email: "MCcool322@aol.com", password: "abcd", password_confirmation: "abcd"}
 ])
 
+# binding.pry
+
+bins = Bin.create([
+  {bin: "test", user: User.first}
+])
+
 creators_string = ""
 comics.each do |comic|
   # get a string of all creators names and roles
