@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   get '/comics' => 'comics#comics'
 
   resources :comics_data
+
+  get '/bins' => 'comics_data#bins'
+  get '/bins/:id' => 'comics_data#binComic'
   # resources :comics, only: []
 
 end

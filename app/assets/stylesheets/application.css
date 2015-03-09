@@ -20,3 +20,47 @@
  .hidden {
    display: none;
  }
+
+ html {
+  height: 100%;
+ }
+
+ body {
+  background-image: url("https://blastzoneonline.files.wordpress.com/2013/01/shield01.png");
+  background-size: 100%, 100%;
+  height: 100%;
+ }
+
+ fieldset {
+  background: #ffcc66;
+  margin: 0 auto;
+ }
+
+ .user {
+  vertical-align: middle;
+ }
+
+ .mainButton {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  display: inline-block;
+ }
+
+.wrapper {
+  width: 960px;
+  margin: 0 auto;
+}
+
+#bins{
+  width: 50%;
+  background: #ffcc66;
+}
+
+.login {
+  width: 50%;
+}
+
+.new-login{
+  width: 50%;
+}

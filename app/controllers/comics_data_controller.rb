@@ -5,8 +5,19 @@ class ComicsDataController < ApplicationController
     render json: @comics
   end
 
+  def bins
+    @bins = Bin.all
+    render json: @bins
+  end
+
+  def binComic
+    @comics = Bin.find(params["id"]).comics
+    render json: @comics
+  end
+
   def show
-    binding.pry
+    @comics = User.find(params["id"]).comics
+    render json: @comics
   end
 
   def create
@@ -16,15 +27,24 @@ class ComicsDataController < ApplicationController
     # binding.pry
     if @bin.nil? && !@comic.nil?
       # binding.pry
-      Bin.create([
+      @bin = Bin.create(
         {bin: params[:bin], user_id: @user.id}
-      ])
+      )
+      @bin.comics << @comic
       @bin.save
     elsif !@comic.nil?
 
       @bin.comics << @comic
       @bin.save
     end
+    render json: @comic
+  end
+
+  def destroy
+    # binding.pry
+    @comic = Comic.find(params[:id])
+    @bin = Comic.find(params[:id]).bins.find_by(user_id: $id)
+    @bin.comics.delete(@comic)
     render json: @comic
   end
 

@@ -1,24 +1,50 @@
+<script type="text/javascript">
+  $("body").css('background-image','url(http://cdn2-b.examiner.com/sites/default/files/styles/image_content_width/hash/b0/b1/b0b14475da542a8b9e2beeff8819fe95.JPG?itok=-UcCHU-y)');
+</script>
 <div class="main" id="<%= @id %>">
-  <button id="add">Add a comic</button><br>
-  <button id="show">Show a comic</button>
+  <button class="mainButton" id="add">Add a comic</button>
+  <button class="mainButton" id="show">Show a comic</button>
+  <button class="mainButton" id="index">Show all your bins</button>
+  <button class="mainButton" id="delete">Remove one of your comics</button><br>
 
   <div id="comic-info">
 
-    <%= form_tag("#", class: "hidden", id: "add-comic") do %>
+    <%= form_tag("#", class: "hidden pure-form", id: "add-comic") do %>
+    <fieldset>
       <%= label_tag(:bin, "Enter Bin where the comic is going:") %>
       <%= text_field_tag(:bin, "", id: "add-bin-search-bar") %><br>
       <%= label_tag(:title, "Enter Comic Title:") %>
       <%= text_field_tag(:title, "", size: 100, id: "add-comic-search-bar") %>
       <%= submit_tag("Add") %>
+    </fieldset>
     <% end %>
 
-    <%= form_tag("#", class: "hidden", id: "show-comic") do %>
+    <%= form_tag("#", class: "hidden pure-form", id: "show-comic") do %>
+    <fieldset>
       <%= label_tag(:title, "Enter Comic Title:") %>
       <%= text_field_tag(:title, "", size: 100, id: "show-comic-search-bar") %>
       <%= submit_tag("Display Comic") %>
+    </fieldset>
+    <% end %>
+
+    <%= form_tag("#", class: "hidden pure-form", id: "delete-comic") do %>
+    <fieldset>
+      <%= label_tag(:title, "Enter Comic Title:") %>
+      <%= text_field_tag(:title, "", size: 100, id: "delete-comic-search-bar") %>
+      <%= submit_tag("Remove Comic") %>
+    </fieldset>
     <% end %>
 
     <div id="comic-data">
+
+    </div>
+
+    <div id="bin-data">
+
+      <!-- <fieldset class="hidden"> -->
+      <ul id="bins">
+      </ul>
+      <!-- <fieldset> -->
 
     </div>
 
@@ -26,6 +52,7 @@
 </div>
 
 <script id="show-user-comic" type="text/template">
+  <fieldset>
   <div class="comic">
     <h1><%%= title %></h1>
     <div class="image">
@@ -35,6 +62,17 @@
       <p><%%= description %></p>
     </div>
   </div>
+  </fieldset>
+</script>
+
+<script id="index-bins" type="text/template">
+  <li id="<%%= id %>">
+    <a class="mainBins" href=""><%%= bin %></a><br>
+    <ul id="bin<%%= id %>">
+
+    <ul>
+  </li>
+
 </script>
 
 

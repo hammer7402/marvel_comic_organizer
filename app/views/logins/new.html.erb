@@ -1,6 +1,10 @@
-<h1>New User</h1>
 
 <%= form_for @user, url: {action: "create"}, html: {class: "new-user"} do |f| %>
+  <fieldset class="new-login">
+  <h1>New User</h1>
+  <script type="text/javascript">
+    $("body").css('background-image','url(http://upload.wikimedia.org/wikipedia/en/4/4b/440px-HydraOrganization_Head.jpg)');
+  </script>
   <%= label_tag(:username, "Enter Username:") %>
   <%= f.text_field :username %><br>
   <%= label_tag(:email, "Enter Email:") %>
@@ -10,4 +14,5 @@
   <%= label_tag(:password_confirmation, "Confirm Password:") %>
   <%= f.password_field :password_confirmation %><br>
   <%= f.submit "Create Login" %>
+  </fieldset>
 <% end %>

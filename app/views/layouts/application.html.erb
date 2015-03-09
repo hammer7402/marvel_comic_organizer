@@ -5,17 +5,19 @@
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
+  <!-- <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css"> -->
 </head>
 <body>
-  <header>
-    <% if !session[:user_id].nil? %>
-    <div class="logout">
-      <%= link_to 'Logout', "login", method: :delete %>
-    </div>
-    <% end %>
-  </header>
+  <div class="wrapper">
+    <header>
+      <% if !session[:user_id].nil? %>
+      <div class="logout">
+        <%= link_to 'Logout', "login", method: :delete %>
+      </div>
+      <% end %>
+    </header>
 
-<%= yield %>
-
+  <%= yield %>
+</div>
 </body>
 </html>
