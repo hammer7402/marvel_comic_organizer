@@ -27,7 +27,7 @@ class LoginsController < ApplicationController
   def create
     user = User.create(user_params)
     user.save
-    binding.pry
+    # binding.pry
     redirect_to "/login"
   end
 

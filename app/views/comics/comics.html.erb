@@ -1,6 +1,7 @@
 <script type="text/javascript">
   $("body").css('background-image','url(http://cdn2-b.examiner.com/sites/default/files/styles/image_content_width/hash/b0/b1/b0b14475da542a8b9e2beeff8819fe95.JPG?itok=-UcCHU-y)');
 </script>
+
 <div class="main" id="<%= @id %>">
   <button class="mainButton" id="add">Add a comic</button>
   <button class="mainButton" id="show">Show a comic</button>
@@ -77,3 +78,260 @@
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.3.1/lodash.min.js" type="text/javascript"></script>
+
+<script>
+
+function addAutoComplete(){
+  var availableTags = <%= raw @user.bins.map { |b| b.bin } %>;
+  // debugger;
+  $("#add-bin-search-bar").autocomplete({
+    source: availableTags
+  });
+
+  var availableTags = <%= raw Comic.all.map { |c| c.title } %>;
+  $("#add-comic-search-bar").autocomplete({
+    source: availableTags
+  });
+}
+
+function showAutoComplete(){
+
+  $.get( "/comics_data/" +  <%= @user.id %> ).done(function(e){
+     var titles = e.map(function(comic){
+       return comic.title;
+     })
+    $("#show-comic-search-bar").autocomplete({
+      source: titles
+    });
+  });
+}
+
+function deleteAutoComplete(){
+  var deleteTags = <%= raw @user.comics.map { |c| c.title } %>;
+  $("#delete-comic-search-bar").autocomplete({
+    source: deleteTags
+  });
+}
+
+function hideEverything(x){
+  if (x === "a"){
+    $("#show-comic").addClass("hidden");
+    $("#delete-comic").addClass("hidden");
+
+  }
+  else if (x==="s"){
+    $("#add-comic").addClass("hidden");
+    $("#delete-comic").addClass("hidden");
+
+  }
+  else if (x==="i"){
+    $("#add-comic").addClass("hidden");
+    $("#show-comic").addClass("hidden");
+    $("#delete-comic").addClass("hidden");
+  }
+  else if (x==="d"){
+    $("#add-comic").addClass("hidden");
+    $("#show-comic").addClass("hidden");
+  }
+  $('#comic-data').html($("<p>"));
+  $('#bins').html($(""));
+}
+
+function showComic(title){
+  $.get( "/comics_data/").done(function (response) {
+    var comic = {};
+    for (var i = 0; i < response.length; i++) {
+      if (response[i]["title"] === title) {
+        comic = response[i];
+      }
+    };
+    // debugger;
+    var comicTemplateSource = $("#show-user-comic").html();
+    var generateComicHTML = _.template(comicTemplateSource);
+
+    var comicHTML = generateComicHTML(comic);
+
+    $('#comic-data').html(comicHTML);
+  });
+}
+
+$(document).ready(function(){
+  console.log("main.js")
+
+  $("#add").click(function(){
+    hideEverything("a");
+    $("#add-comic").toggleClass("hidden");
+    // $("body").css({
+    //     backgroundImage: 'url("http://megahdwallpapers.net/wallpapers/l/1440x900/35/spider_man_mosaic_marvel_comics_comic_books_1440x900_34396.jpg")',
+    //     backgroundSize: '100% 100%',
+    //     height: '100%'
+    //   });
+    $("body").css('background-image','url(http://p1.pichost.me/i/67/1922062.jpg)');
+    // $("#show-comic").addClass("hidden");
+    // $('#comic-data').html($("<p>"));
+
+  });
+
+  $("#show").click(function(){
+    hideEverything("s");
+    $("#show-comic").toggleClass("hidden");
+    showAutoComplete();
+    $("body").css({
+        backgroundImage: 'url("http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2014/6/10/1402420407849/A-collection-of-Marvel-co-008.jpg")',
+        backgroundSize: '100% 100%',
+        height: '100%'
+      });
+    // $("#add-comic").addClass("hidden");
+    // $('#comic-data').html($("<p>"));
+
+  })
+
+  $("#index").click(function(){
+    hideEverything("i");
+    addAutoComplete();
+    $("body").css({
+          backgroundImage: 'url("http://www.platformnation.com/wp-content/uploads/2010/06/MarvelComics.jpg")',
+          backgroundSize: '100% 100%',
+          height: '100%'
+    });
+
+    $("bin-data fieldset").removeClass("hidden");
+
+    var binNames = [];
+    var binName  = {};
+
+    $.get( "/bins").done(function (response) {
+      for (var i = 0; i < response.length; i++) {
+        // debugger;
+        if (response[i]["user_id"] === <%= @user.id %>) {
+          binNames.push(response[i]);
+        }
+      };
+      // debugger;
+      var binsTemplateSource = $("#index-bins").html();
+      var generateBinsHTML = _.template(binsTemplateSource);
+
+      for (var i = 0; i < binNames.length; i++) {
+        var binsHTML = generateBinsHTML(binNames[i]);
+        $('#bins').append(binsHTML);
+      };
+
+
+
+      $(".mainBins").on( "click", function( event ) {
+        event.preventDefault();
+
+        // console.log( $( this ).attr('id') );
+        var id = $( this ).parent().attr('id');
+        var title = "";
+        // debugger;
+        var idNum = $("#bins > li").first().attr("id")
+        for (var i = 0; i < $(".mainBins").length; i++) {
+          // if (i+1!=@user.id){
+            // $("#bin"+idNum).html($(""));
+            $("#bin"+idNum).html($(""));
+          idNum++;
+          // }
+        };
+        // debugger;
+        $.get( "/bins/"+ id ).done(function (response) {
+          for (var i = 0; i < response.length; i++) {
+            // debugger;
+            title = response[i]["title"];
+            $("#bin"+ id).append($("<li class='binLI'>"+title+"</li>"))
+            $(".binLI").on( "click", function( event ) {
+              // debugger;
+              var $title = $(this).text();
+              hideEverything("s");
+              showComic($title);
+            });
+          };
+
+          // var comicTemplateSource = $("#show-user-comic").html();
+          // var generateComicHTML = _.template(comicTemplateSource);
+
+          // var comicHTML = generateComicHTML(comic);
+
+          // $('#comic-data').html(comicHTML);
+        });
+      });
+
+    });
+
+
+  });
+
+  $("#delete").click(function(){
+    hideEverything("d");
+    $("#delete-comic").toggleClass("hidden");
+    deleteAutoComplete();
+
+    $("body").css({
+        backgroundImage: 'url("http://ifanboy.com/wp-content/uploads/2011/07/galeatsworld.jpg")',
+        backgroundSize: '100% 100%',
+        height: '100%'
+      });
+    // $("#add-comic").addClass("hidden");
+    // $('#comic-data').html($("<p>"));
+
+  })
+
+  num = parseInt($(".main").attr("id"))
+  // debugger;
+
+  addAutoComplete();
+  showAutoComplete();
+  deleteAutoComplete();
+
+
+  $("#add-comic").on("submit", function(e) {
+    e.preventDefault();
+    comic =
+      {
+        bin: $("#add-bin-search-bar").val(),
+        title: $("#add-comic-search-bar").val()
+      }
+    // debugger;
+    $.post("/comics_data", comic).done(function (response) {
+      addAutoComplete();
+    });
+
+  });
+
+  $("#show-comic").on("submit", function(e) {
+    e.preventDefault();
+    showAutoComplete();
+
+    var $title = $("#show-comic-search-bar").val()
+    showComic($title);
+    // debugger;
+
+    // debugger;
+
+  });
+
+  $("#delete-comic").on("submit", function(e) {
+    e.preventDefault();
+
+
+    var $title = $("#delete-comic-search-bar").val()
+    var comics = <%= raw @user.comics.to_json %>
+
+    for (var i = 0; i < comics.length; i++) {
+      if (comics[i]["title"]===$title){
+        // debugger;
+        var id = comics[i].id
+        $.ajax({
+          url: '/comics_data/'+id,
+          type: 'DELETE'
+
+        }).done(function (response) {
+          deleteAutoComplete();
+        });
+      }
+    };
+
+
+  });
+});
+</script>

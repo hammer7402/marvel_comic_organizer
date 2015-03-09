@@ -3,7 +3,8 @@ class ComicsController < ApplicationController
 
   def comics
     # binding.pry
-    $id = session[:user_id]
+    # $id = session[:user_id]
+    @user = User.find(session[:user_id])
   end
 
 end

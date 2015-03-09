@@ -57,10 +57,18 @@
   background: #ffcc66;
 }
 
+header {
+  background: #ffcc66;
+}
+
 .login {
-  width: 50%;
+  width: 40%;
+  position: relative;
+  top: 300px;
 }
 
 .new-login{
-  width: 50%;
+  width: 40%;
+  position: relative;
+  top: 300px;
 }
