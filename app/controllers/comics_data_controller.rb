@@ -43,7 +43,7 @@ class ComicsDataController < ApplicationController
   def destroy
     # binding.pry
     @comic = Comic.find(params[:id])
-    @bin = Comic.find(params[:id]).bins.find_by(user_id: $id)
+    @bin = Comic.find(params[:id]).bins.find_by(user_id: params[:user_id])
     @bin.comics.delete(@comic)
     render json: @comic
   end

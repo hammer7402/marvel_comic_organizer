@@ -43,7 +43,7 @@ sleep_time = [1,2,3,4,5]
 
   comics_response = HTTParty.get(url+query_params)
   if comics_response.code != 200
-    binding.pry
+    # binding.pry
   end
   comics = comics_response["data"]["results"]
   sleep(2)
