@@ -322,7 +322,7 @@ $(document).ready(function(){
         // debugger;
         var id = comics[i].id
         $.ajax({
-          url: '/comics_data/'+id+"?$user_id="+<%= @user.id %>,
+          url: '/comics_data/'+id+"?user_id="+<%= @user.id %>,
           type: 'DELETE'
 
         }).done(function (response) {
