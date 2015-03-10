@@ -6,19 +6,21 @@ This is my marvel comic organizer.  Which was made to help users
 be able to quickly locate their marvel comics.
 
 You can locate the program at:
-[click here](https://fast-bayou-7082.herokuapp.com)
+https://fast-bayou-7082.herokuapp.com
 
 to add to the project your going to need to sign up at
-[click here](http://developer.marvel.com/)
+http://developer.marvel.com/
 change the private and public keys in the seed file.
 
 To use the website you need to create an a account then sign in.  Once in you can create a bin and add comics to your bins when you click add button.  You can view a comic with the show button.  You can view all your bins and the comics in them with the index button.  Also if you click a comic there it will show the comic.  The delete button removes a comic from your bin.
 
 trello
-[click here](https://trello.com/b/3IMFDHRX/marvel-organizer)
+https://trello.com/b/3IMFDHRX/marvel-organizer
 
 Used:
-Marvel api
-jquery ui
-loadash
+Marvel api,
+jquery ui,
+loadash,
+rails,
+PostgreSQL
 <tt>rake doc:app</tt>.
