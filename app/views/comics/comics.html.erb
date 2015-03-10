@@ -286,10 +286,12 @@ $(document).ready(function(){
 
   $("#add-comic").on("submit", function(e) {
     e.preventDefault();
+    var binSearchValue = $("#add-bin-search-bar").val();
+    var comicSearchValue = $("#add-comic-search-bar").val();
     comic =
       {
-        bin: $("#add-bin-search-bar").val(),
-        title: $("#add-comic-search-bar").val()
+        bin: binSearchValue,
+        title: comicSearchValue
       }
     // debugger;
     $.post("/comics_data", comic).done(function (response) {

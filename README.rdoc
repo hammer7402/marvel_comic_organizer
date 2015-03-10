@@ -1,28 +1,24 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Hi I'm Michael Campbell
 
-Things you may want to cover:
+This is my marvel comic organizer.  Which was made to help users
+be able to quickly locate their marvel comics.
 
-* Ruby version
+You can locate the program at:
+[click here](https://fast-bayou-7082.herokuapp.com)
 
-* System dependencies
+to add to the project your going to need to sign up at
+[click here](http://developer.marvel.com/)
+change the private and public keys in the seed file.
 
-* Configuration
+To use the website you need to create an a account then sign in.  Once in you can create a bin and add comics to your bins when you click add button.  You can view a comic with the show button.  You can view all your bins and the comics in them with the index button.  Also if you click a comic there it will show the comic.  The delete button removes a comic from your bin.
 
-* Database creation
+trello
+[click here](https://trello.com/b/3IMFDHRX/marvel-organizer)
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
+Used:
+Marvel api
+jquery ui
+loadash
 <tt>rake doc:app</tt>.
